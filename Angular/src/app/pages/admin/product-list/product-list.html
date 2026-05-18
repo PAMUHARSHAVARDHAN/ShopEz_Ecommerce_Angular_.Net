@@ -1,0 +1,69 @@
+<div class="container mt-4">
+
+  <h2 class="mb-3">Manage Products</h2>
+
+  <!-- Add Button -->
+  <a routerLink="/admin/add-product" class="btn btn-primary mb-3">
+    + Add Product
+  </a>
+
+  <!-- Table -->
+  <table class="table table-bordered table-hover text-center align-middle">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Stock</th>
+        
+        <th style="width: 180px;">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      @for (p of products; track p.productId) {
+        <tr>
+
+          <!-- Image -->
+          <td>
+            <img 
+             [src]="'https://localhost:7125/Productimages/' +  p.productImages[0].imageUrl"
+              width="70" height="70"
+              style="object-fit: contain;">
+          </td>
+
+          <!-- Name -->
+          <td>{{ p.name }}</td>
+
+          <!-- Price -->
+          <td>₹{{ p.price }}</td>
+          <td>{{ p.description }}</td>
+
+      <!-- Stock -->
+      <td>{{ p.stock }}</td>
+      
+
+          <!-- Actions -->
+          <td>
+            <button class="btn btn-warning btn-sm"
+                    [routerLink]="'/admin/edit-product/' + p.productId">
+              ✏️ Edit
+            </button>
+
+            <button class="btn btn-danger btn-sm ms-2"
+                    (click)="deleteProduct(p.productId)">
+              🗑 Delete
+            </button>
+          </td>
+
+        </tr>
+      }
+
+    </tbody>
+
+  </table>
+
+</div>

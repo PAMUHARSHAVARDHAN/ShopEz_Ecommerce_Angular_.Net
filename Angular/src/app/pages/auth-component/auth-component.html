@@ -1,0 +1,309 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+      <div class="card shadow p-4">
+
+        <!-- Toggle Buttons -->
+        <div class="text-center mb-3">
+
+          <button class="btn btn-outline-primary me-2"
+                  (click)="isSignUp = false">
+            Login
+          </button>
+
+          <button class="btn btn-outline-success"
+                  (click)="isSignUp = true">
+            Sign Up
+          </button>
+
+        </div>
+
+        <!-- LOGIN FORM -->
+        @if(!isSignUp){
+
+        <form #loginForm="ngForm"
+              (ngSubmit)="onLogin()">
+
+          @if(loginErrorMessage){
+            <div class="alert alert-danger mt-2">
+              {{ loginErrorMessage }}
+            </div>
+          }
+
+          <h3 class="text-center mb-3">
+            Login
+          </h3>
+
+          <!-- Email -->
+          <div class="mb-3">
+
+            <input type="email"
+                   class="form-control"
+                   placeholder="Email"
+                   [(ngModel)]="loginData.email"
+                   name="loginEmail"
+                   #loginEmail="ngModel"
+                   required
+                   email>
+
+            @if(loginEmail.invalid && loginEmail.touched){
+
+            <div class="text-danger mt-1">
+
+              @if(loginEmail.errors?.['required']){
+              <small>Email is required</small>
+              }
+
+              @if(loginEmail.errors?.['email']){
+              <small>Invalid email format</small>
+              }
+
+            </div>
+
+            }
+
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+
+            <div class="input-group">
+
+              <input
+                [type]="showLoginPassword ? 'text' : 'password'"
+                class="form-control"
+                placeholder="Password"
+                [(ngModel)]="loginData.password"
+                name="loginPassword"
+                #loginPassword="ngModel"
+                required
+                minlength="6">
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="showLoginPassword = !showLoginPassword">
+
+                @if(showLoginPassword){
+                <i class="bi bi-eye-slash"></i>
+                }
+                @else {
+                <i class="bi bi-eye"></i>
+                }
+
+              </button>
+
+            </div>
+
+            @if(loginPassword.invalid && loginPassword.touched){
+
+            <div class="text-danger mt-1">
+
+              @if(loginPassword.errors?.['required']){
+              <small>Password is required</small>
+              }
+
+              @if(loginPassword.errors?.['minlength']){
+              <small>Password must be at least 6 characters</small>
+              }
+
+            </div>
+
+            }
+
+          </div>
+
+          <button class="btn btn-primary w-100"
+                  [disabled]="loginForm.invalid">
+            Login
+          </button>
+
+        </form>
+
+        }
+
+        <!-- SIGNUP FORM -->
+        @if(isSignUp){
+
+        <form #registerForm="ngForm"
+              (ngSubmit)="onRegister(registerForm)">
+
+          @if(successMessage){
+            <div class="alert alert-success">
+              {{ successMessage }}
+            </div>
+          }
+
+          @if(errorMessage){
+            <div class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <h3 class="text-center mb-3">
+            Sign Up
+          </h3>
+
+          <!-- Full Name -->
+          <div class="mb-3">
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Full Name"
+                   [(ngModel)]="registerData.fullName"
+                   name="fullName"
+                   #fullName="ngModel"
+                   required
+                   minlength="3">
+
+            @if(fullName.invalid && fullName.touched){
+
+            <div class="text-danger mt-1">
+
+              @if(fullName.errors?.['required']){
+              <small>Full name is required</small>
+              }
+
+              @if(fullName.errors?.['minlength']){
+              <small>Minimum 3 characters required</small>
+              }
+
+            </div>
+
+            }
+
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+
+            <input type="email"
+                   class="form-control"
+                   placeholder="Email"
+                   [(ngModel)]="registerData.email"
+                   name="email"
+                   #email="ngModel"
+                   required
+                   email>
+
+            @if(email.invalid && email.touched){
+
+            <div class="text-danger mt-1">
+
+              @if(email.errors?.['required']){
+              <small>Email is required</small>
+              }
+
+              @if(email.errors?.['email']){
+              <small>Invalid email format</small>
+              }
+
+            </div>
+
+            }
+
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+
+            <div class="input-group">
+
+              <input
+                [type]="showRegisterPassword ? 'text' : 'password'"
+                class="form-control"
+                placeholder="Password"
+                [(ngModel)]="registerData.password"
+                name="password"
+                #password="ngModel"
+                required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).{6,}$">
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="showRegisterPassword = !showRegisterPassword">
+
+                @if(showRegisterPassword){
+                <i class="bi bi-eye-slash"></i>
+                }
+                @else {
+                <i class="bi bi-eye"></i>
+                }
+
+              </button>
+
+            </div>
+
+            @if(password.invalid && password.touched){
+
+            <div class="text-danger mt-1">
+
+              @if(password.errors?.['required']){
+              <small>Password is required</small>
+              }
+
+              @if(password.errors?.['pattern']){
+              <small>
+                Password must contain:
+                <br>• 1 uppercase letter
+                <br>• 1 lowercase letter
+                <br>• 1 number
+                <br>• 1 special character
+                <br>• Minimum 6 characters
+              </small>
+              }
+
+            </div>
+
+            }
+
+          </div>
+
+          <!-- Mobile -->
+          <div class="mb-3">
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Mobile"
+                   [(ngModel)]="registerData.mobileNo"
+                   name="mobileNo"
+                   #mobileNo="ngModel"
+                   required
+                   pattern="^[0-9]{10}$">
+
+            @if(mobileNo.invalid && mobileNo.touched){
+
+            <div class="text-danger mt-1">
+
+              @if(mobileNo.errors?.['required']){
+              <small>Mobile number is required</small>
+              }
+
+              @if(mobileNo.errors?.['pattern']){
+              <small>Enter valid 10 digit mobile number</small>
+              }
+
+            </div>
+
+            }
+
+          </div>
+
+          <button class="btn btn-success w-100"
+                  [disabled]="registerForm.invalid">
+            Register
+          </button>
+
+        </form>
+
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

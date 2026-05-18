@@ -1,0 +1,28 @@
+<h2 class="text-center my-4">My Orders</h2>
+
+@if (orders.length === 0) {
+  <div class="text-center">
+    No orders found
+  </div>
+}
+
+@for (order of orders; track order.orderId) {
+  <div class="card p-3 mb-3">
+
+    <h5>Order #{{ order.orderId }}</h5>
+    <p>Date: {{ order.orderDate | date }}</p>
+    <p>Total: ₹{{ order.totalAmount }}</p>
+
+    <hr>
+
+    @for (item of order.orderItems; track item.productId) {
+      <div>
+        <p>
+          {{ item.productName }} 
+          (x{{ item.quantity }}) - ₹{{ item.price }}
+        </p>
+      </div>
+    }
+
+  </div>
+}

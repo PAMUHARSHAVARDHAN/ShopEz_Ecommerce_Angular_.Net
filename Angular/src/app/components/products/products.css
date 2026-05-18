@@ -1,0 +1,21 @@
+.product-card img {
+  height: 200px;
+  object-fit: contain;
+}
+
+.product-card {
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+.filter-item {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-item:hover {
+  background-color: #f5f5f5;
+  color: black;
+}

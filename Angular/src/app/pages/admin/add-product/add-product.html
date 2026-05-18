@@ -1,0 +1,194 @@
+<form (ngSubmit)="createProduct()" class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+
+  <h2>Add Product</h2>
+
+  <button
+    type="button"
+    class="btn btn-secondary"
+    routerLink="/admin/products">
+
+    ← Go Back
+
+  </button>
+  </div>
+
+  <!-- Name -->
+  <div class="mb-3">
+
+    <label>Name</label>
+
+    <input type="text"
+           class="form-control"
+           [(ngModel)]="product.name"
+           name="name"
+           required>
+
+  </div>
+
+  <!-- Price -->
+  <div class="mb-3">
+
+    <label>Price</label>
+
+    <input type="number"
+           class="form-control"
+           [(ngModel)]="product.price"
+           name="price"
+           required>
+
+  </div>
+
+  <!-- Description -->
+  <div class="mb-3">
+
+    <label>Description</label>
+
+    <textarea class="form-control"
+              [(ngModel)]="product.description"
+              name="description">
+    </textarea>
+
+  </div>
+
+  <!-- Total Stock -->
+  <div class="mb-3">
+
+    <label>Total Stock</label>
+
+    <input type="number"
+           class="form-control"
+           [(ngModel)]="product.stock"
+           name="stock">
+
+  </div>
+
+  <!-- Category Id -->
+  <div class="mb-3">
+
+    <label>Category Id</label>
+
+    <input type="number"
+           class="form-control"
+           [(ngModel)]="product.categoryId"
+           name="categoryId">
+
+  </div>
+
+  <!-- Gender -->
+  <div class="mb-3">
+
+    <label>Gender</label>
+
+    <select class="form-control"
+            [(ngModel)]="product.gender"
+            name="gender">
+
+      <option value="">Select Gender</option>
+
+      <option value="Male">Male</option>
+
+      <option value="Female">Female</option>
+
+  
+
+    </select>
+
+  </div>
+
+  <!-- Upload Images -->
+  <div class="mb-3">
+
+    <label>Upload Images</label>
+
+    <input type="file"
+           class="form-control"
+           multiple
+           (change)="onFilesSelected($event)">
+
+  </div>
+
+  <!-- Preview Images -->
+  <div class="d-flex gap-2 flex-wrap mb-3">
+
+    @for (img of previewUrls; track $index) {
+
+      <div>
+
+        <img [src]="img"
+             width="100"
+             height="100"
+             class="border rounded">
+
+      </div>
+
+    }
+
+  </div>
+
+  <!-- Sizes -->
+  <h4>Product Sizes</h4>
+
+  @for (size of sizes; track $index) {
+
+    <div class="row mb-2">
+
+      <!-- Size -->
+      <div class="col-md-5">
+
+        <input type="text"
+               class="form-control"
+               placeholder="Size (S,M,L,XL)"
+               [(ngModel)]="size.sizeValue"
+               name="size{{$index}}">
+
+      </div>
+
+      <!-- Stock -->
+      <div class="col-md-5">
+
+        <input type="number"
+               class="form-control"
+               placeholder="Stock"
+               [(ngModel)]="size.stock"
+               name="stock{{$index}}">
+
+      </div>
+
+      <!-- Remove -->
+      <div class="col-md-2">
+
+        <button type="button"
+                class="btn btn-danger"
+                (click)="removeSize($index)">
+
+          Remove
+
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <!-- Add Size -->
+  <button type="button"
+          class="btn btn-primary mb-3"
+          (click)="addSize()">
+
+    Add Size
+
+  </button>
+
+  <br>
+
+  <!-- Submit -->
+  <button class="btn btn-success">
+
+    Create Product
+
+  </button>
+
+</form>

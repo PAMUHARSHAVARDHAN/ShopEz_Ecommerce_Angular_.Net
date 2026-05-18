@@ -1,0 +1,128 @@
+<section class="container-fluid my-5">
+
+  <div class="row">
+
+    <!-- LEFT FILTERS -->
+    <div class="col-md-2">
+
+      <div class="border p-3 rounded shadow-sm">
+
+        <h5>Categories</h5>
+
+        <ul class="list-group mb-4">
+
+          <li class="list-group-item filter-item"
+              (click)="clearFilters()">
+            All
+          </li>
+
+          @for(category of categories; track category){
+
+            <li class="list-group-item filter-item"
+                (click)="selectCategory(category)">
+              {{ category }}
+            </li>
+
+          }
+
+        </ul>
+
+        <h5>Gender</h5>
+
+        <ul class="list-group">
+
+          <li class="list-group-item filter-item"
+              (click)="selectGender('Male')">
+            Male
+          </li>
+
+          <li class="list-group-item filter-item"
+              (click)="selectGender('Female')">
+            Female
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="col-md-10">
+
+      <h2 class="text-center mb-4">
+        Our Products
+      </h2>
+         
+
+      <div class="row g-4">
+
+        @for(product of filteredProducts; track product.productId){
+
+          <div class="col-md-3">
+
+            <div class="card h-100 text-center shadow-sm product-card">
+
+              <!-- IMAGE -->
+              <img
+                [src]="'https://localhost:7125/Productimages/' +  product.productImages[0].imageUrl"
+                class="card-img-top"
+                alt="product">
+
+              <div class="card-body">
+
+                <h6>{{ product.name }}</h6>
+
+                
+
+                <p class="fw-bold text-dark">
+                   ₹{{ product.price }}
+                </p>
+                <!-- STOCK -->
+                @if(product.stock > 0){
+
+                  <p class="text-success small">
+                    In Stock ({{ product.stock }})
+                  </p>
+
+                  @if(product.stock <= 3){
+
+                    <p class="text-warning small">
+                      Only {{ product.stock }} left!
+                    </p>
+
+                  }
+
+                } @else {
+
+                  <p class="text-danger fw-bold">
+                    Out of Stock
+                  </p>
+
+                }
+
+                <!-- BUTTONS -->
+                <button
+                  class="btn btn-primary btn-sm me-2"
+                  (click)="viewProduct(product.productId)">
+                  View
+                </button>
+
+  
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+       
+    </div>
+
+  </div>
+
+</section>

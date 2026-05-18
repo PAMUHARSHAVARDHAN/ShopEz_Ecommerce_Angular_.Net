@@ -1,0 +1,28 @@
+<div class="container mt-4">
+
+  <div class="card shadow p-4">
+
+    <h3 class="mb-3">My Profile</h3>
+
+    <table class="table table-bordered">
+
+      <tr>
+        <th style="width: 30%">Full Name</th>
+        <td>{{ user?.fullName || 'N/A' }}</td>
+      </tr>
+
+      <tr>
+        <th>Email</th>
+        <td>{{ user?.email || 'N/A' }}</td>
+      </tr>
+
+      <tr>
+        <th>Role</th>
+        <td>{{ user?.role || 'User' }}</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>

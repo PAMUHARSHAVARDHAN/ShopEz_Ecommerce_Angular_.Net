@@ -1,0 +1,14 @@
+footer a:hover {
+  text-decoration: underline;
+}
+a {
+  cursor: pointer;
+}
+footer i {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+footer i:hover {
+  color: #0d6efd;
+}

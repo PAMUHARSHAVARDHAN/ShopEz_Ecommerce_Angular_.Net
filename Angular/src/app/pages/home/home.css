@@ -1,0 +1,154 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Background image via CSS (best for Angular) */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/images/bannerimg.png') no-repeat center top/cover;
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(150px);
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .hero-content {
+    transform: translateY(40px);
+  }
+}
+
+/* Title */
+.hero-title {
+  font-size: 60px;
+  font-weight: 700;
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Button */
+.btn {
+  margin-top: 20px;
+  padding: 12px 30px;
+  font-weight: 600;
+}
+
+
+.brand-card {
+  height: 100px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #eee;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.brand-card:hover {
+  transform: scale(1.05);
+}
+.brand-card img {
+  max-width: 120%;
+  max-height: 60%;
+  object-fit: contain;
+}
+
+.product-card {
+  width: 100%;
+  height: 380px;              /* ⬆ increased from 320px to give button room */
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.img-box {
+  height: 220px;              /* ⬆ increased from 180px */
+  flex-shrink: 0;             /* ✅ ADD THIS — prevents img-box from shrinking */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+}
+
+.product-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px 12px;    /* ✅ ADD THIS — ensures button isn't flush to edge */
+}
+
+.product-card button {
+  width: 100%;
+}
+
+
+.trust-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.trust-card i {
+  font-size: 30px;
+  color: #0d6efd;
+  margin-bottom: 10px;
+}
+
+.trust-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
+
+
+

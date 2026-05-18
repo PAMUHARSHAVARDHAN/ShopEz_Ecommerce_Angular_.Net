@@ -1,0 +1,216 @@
+<div class="container mt-4">
+
+ <div class="d-flex justify-content-between align-items-center mb-3">
+
+  <h2>Edit Product</h2>
+
+  <button
+    type="button"
+    class="btn btn-secondary"
+    routerLink="/admin/products">
+
+    ← Go Back
+
+  </button>
+
+</div>
+
+  <form (ngSubmit)="updateProduct()">
+
+    <!-- Name -->
+    <div class="mb-3">
+
+      <label>Name</label>
+
+      <input type="text"
+             [(ngModel)]="product.name"
+             name="name"
+             class="form-control">
+
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+
+      <label>Price</label>
+
+      <input type="number"
+             [(ngModel)]="product.price"
+             name="price"
+             class="form-control">
+
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+
+      <label>Description</label>
+
+      <textarea class="form-control"
+                [(ngModel)]="product.description"
+                name="description">
+      </textarea>
+
+    </div>
+
+    <!-- Total Stock -->
+    <div class="mb-3">
+
+      <label>Total Stock</label>
+
+      <input type="number"
+             [(ngModel)]="product.stock"
+             name="stock"
+             class="form-control">
+
+    </div>
+
+    <!-- Category -->
+    <div class="mb-3">
+
+      <label>Category Id</label>
+
+      <input type="number"
+             [(ngModel)]="product.categoryId"
+             name="categoryId"
+             class="form-control">
+
+    </div>
+
+    <!-- Gender -->
+    <div class="mb-3">
+
+      <label>Gender</label>
+
+      <select class="form-control"
+              [(ngModel)]="product.gender"
+              name="gender">
+
+        <option value="Male">Male</option>
+
+        <option value="Female">Female</option>
+
+      </select>
+
+    </div>
+
+    <!-- Current Images -->
+    <div class="mb-3">
+
+      <label>Current Images</label>
+
+      <div class="d-flex gap-2 flex-wrap">
+
+        @for (img of product.productImages; track $index) {
+
+          <div>
+
+            <img
+              [src]="'https://localhost:7125/Productimages/' + img.imageUrl"
+              width="100"
+              height="100"
+              class="border rounded">
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+    <!-- Upload New Images -->
+    <div class="mb-3">
+
+      <label>Upload New Images</label>
+
+      <input type="file"
+             class="form-control"
+             multiple
+             (change)="onFilesSelected($event)">
+
+    </div>
+
+    <!-- Preview New Images -->
+    <div class="d-flex gap-2 flex-wrap mb-3">
+
+      @for (img of previewUrls; track $index) {
+
+        <div>
+
+          <img [src]="img"
+               width="100"
+               height="100"
+               class="border rounded">
+
+        </div>
+
+      }
+
+    </div>
+
+    <!-- Sizes -->
+    <h4>Product Sizes</h4>
+
+    @for (size of product.productSizes; track $index) {
+
+      <div class="row mb-2">
+
+        <!-- Size -->
+        <div class="col-md-5">
+
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="size.sizeValue"
+                 name="size{{$index}}">
+
+        </div>
+
+        <!-- Stock -->
+        <div class="col-md-5">
+
+          <input type="number"
+                 class="form-control"
+                 [(ngModel)]="size.stock"
+                 name="stock{{$index}}">
+
+        </div>
+
+        <!-- Remove -->
+        <div class="col-md-2">
+
+          <button type="button"
+                  class="btn btn-danger"
+                  (click)="removeSize($index)">
+
+            Remove
+
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+    <!-- Add Size -->
+    <button type="button"
+            class="btn btn-primary mb-3"
+            (click)="addSize()">
+
+      Add Size
+
+    </button>
+
+    <br>
+
+    <!-- Submit -->
+    <button class="btn btn-success">
+
+      Update Product
+
+    </button>
+
+  </form>
+
+</div>
