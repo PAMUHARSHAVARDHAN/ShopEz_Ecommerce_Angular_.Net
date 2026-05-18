@@ -1,0 +1,130 @@
+version: '3.9'
+
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: shopez-sqlserver
+
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Your_password123"
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - sql_data:/var/opt/mssql
+
+
+
+  userservice:
+    build:
+      context: ./UserService
+
+    container_name: userservice
+
+    ports:
+      - "5001:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=UserServiceDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;Encrypt=False;"
+
+      Jwt__Key: "MY_SECURE_KEY_@1234567890_SUPER_SECRET_!@#_JWT"
+      Jwt__Issuer: "MyApp"
+      Jwt__Audience: "MyAppUsers"
+
+    depends_on:
+      - sqlserver
+
+
+
+  productservice:
+    build:
+      context: ./ProductService
+
+    container_name: productservice
+
+    ports:
+      - "5002:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=ProductServiceDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;Encrypt=False;"
+
+      Jwt__Key: "MY_SECURE_KEY_@1234567890_SUPER_SECRET_!@#_JWT"
+      Jwt__Issuer: "MyApp"
+      Jwt__Audience: "MyAppUsers"
+
+    depends_on:
+      - sqlserver
+
+
+
+  orderservice:
+    build:
+      context: ./OrderService
+
+    container_name: orderservice
+
+    ports:
+      - "5003:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=OrderserviceDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;Encrypt=False;"
+
+      Jwt__Key: "MY_SECURE_KEY_@1234567890_SUPER_SECRET_!@#_JWT"
+      Jwt__Issuer: "MyApp"
+      Jwt__Audience: "MyAppUsers"
+
+    depends_on:
+      - sqlserver
+      - productservice
+
+
+
+  apigateway:
+    build:
+      context: ./ApiGateway
+
+    container_name: apigateway
+
+    ports:
+      - "7196:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+
+      Jwt__Key: "MY_SECURE_KEY_@1234567890_SUPER_SECRET_!@#_JWT"
+      Jwt__Issuer: "MyApp"
+      Jwt__Audience: "MyAppUsers"
+
+    depends_on:
+      - userservice
+      - productservice
+      - orderservice
+
+
+
+  frontend:
+    build:
+      context: ./Frontend Angular
+
+    container_name: frontend
+
+    ports:
+      - "4200:80"
+
+    depends_on:
+      - apigateway
+
+
+
+volumes:
+  sql_data:
